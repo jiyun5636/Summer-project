@@ -72,11 +72,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
         switch (wParam)
         {
         case VK_UP:
-            if (!flag)
-            {
-                flag = true;
-                SetTimer(hWndMain, 1, 20, NULL);
-            }
+            SetTimer(hWndMain, 1, 40, NULL);
             break;
         case VK_DOWN:
             issilde = true; //아래키를 눌렀을 때 슬라이드 가능메세지를 보냄 (WM_PAINT에)
@@ -88,13 +84,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
         break;
 
     case WM_KEYUP:
-        flag = false;
-        y = 370;
-        KillTimer(hWndMain, 1);
+        switch (wParam)
+        {
+        case VK_DOWN:
+            issilde = false;
+            break;
+        default:
+            break;
+        }
         InvalidateRect(hWndMain, NULL, true);
-        break;
-
-    case WM_CHAR:
         break;
 
     case WM_TIMER:
@@ -103,6 +101,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
         case 1:
             Move();
             Gravity();
+            if (y == 370) KillTimer(hWnd, 1);
             break;
         default:
             break;
@@ -117,5 +116,3 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
     }
     return(DefWindowProc(hWnd, iMessage, wParam, lParam));
 }
-
-//git test1
