@@ -1,2 +1,4 @@
-﻿  Gravity.cpp
+﻿  game.cpp
+C:\Users\jiyun\OneDrive\바탕 화면\1학기 프로젝트\Summer-project-main\Summer-project\Moving\Moving\game.cpp(44,27): warning C4244: '-=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jiyun\OneDrive\바탕 화면\1학기 프로젝트\Summer-project-main\Summer-project\Moving\Moving\game.cpp(54,27): warning C4244: '+=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   Moving.vcxproj -> C:\Users\jiyun\OneDrive\바탕 화면\1학기 프로젝트\Summer-project-main\Summer-project\Moving\x64\Debug\Moving.exe

@@ -2,15 +2,27 @@
 
 void Reset() //초기화
 {
-    x = 330; y = 370;
+    x = 200; y = 370;
     isjump = false;
     isdown = false;
     issilde = false;
+
+    easy = true;
+    normal = false;
+    hard = false;
     num = 0;
 }
 
 void Move() //모든 플레이어 이동
 {
+    if (GetKeyState(VK_LEFT) & 0x8000)
+    {
+        x -= 10;
+    }
+    if (GetKeyState(VK_RIGHT) & 0x8000)
+    {
+        x += 10;
+    }
     if (GetKeyState(VK_UP) & 0x8000) //화살표 위쪽 키
     {
         if (!isjump && !isdown)
@@ -41,10 +53,13 @@ void Gravity() //점프시 모든 중력
     {
         y += GRAVITY * num; //중력가속도 계산해서 하강
         num++; //떨어질때마다 num이 줄어듬으로서 더 빠르게 하강시킴
-        if (y > 370) //원의 반지름이 30임으로  직선의 y좌표(400)에서 -30만큼 해서 370임
+        for (int i = 0; i < 10; i++) //낭떠러지면 계속 하강
         {
-            y = 370; //원하는 좌표만큼 하강하면 좌표고정 (최초 좌표)
-            isdown = false; //하강 불가능
+            if (y-30 > f[i].floor_y) //원의 반지름이 30임으로  직선의 y좌표(400)에서 -30만큼 해서 370임
+            {
+                y++; //원하는 좌표만큼 하강하면 좌표고정 (최초 좌표)
+            }
+            else  isdown = false; //하강 불가능
         }
     }
     InvalidateRect(hWndMain, NULL, TRUE);
@@ -52,8 +67,18 @@ void Gravity() //점프시 모든 중력
 
 void MapDraw(HDC hdc) //맵
 {
-    MoveToEx(hdc, Ground_LeftX, 400, NULL); //y축은 고정
-    LineTo(hdc, Ground_RightX, 400);
+    if (easy)
+    {
+        f[0].floor_x = 0;
+        f[0].floor_y = 400;
+        f[1].floor_x = 500;
+        f[1].floor_y = 400;
+        for (int i = 0; i < 2; i++)
+        {
+            MoveToEx(hdc, f[i].floor_x, f[i].floor_y, NULL); //y축은 고정
+            LineTo(hdc, f[i].floor_x+300, f[i].floor_y);
+        }
+    }
 }
 
 void Draw(HDC hdc) //기본 자세 (임시)

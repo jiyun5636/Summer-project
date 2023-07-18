@@ -101,7 +101,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
         case 1:
             Move();
             Gravity();
-            if (y == 370) KillTimer(hWnd, 1);
+            /*for (int i = 0; i < 10; i++)
+            {
+                if (f[i].floor_y == y+30) KillTimer(hWnd, 1);
+            }*/
             break;
         default:
             break;
