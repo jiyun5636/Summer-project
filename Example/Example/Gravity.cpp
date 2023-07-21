@@ -61,15 +61,40 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
     case WM_PAINT:
         hdc = BeginPaint(hWnd, &ps);
         DrawBitmap(hdc, 0, 0, hBackBit);
+        MapDraw(hdc); //기본적으로 맵을 그림
+        if (isslide) //슬라이드가 가능할 때
+        {
+            SlideDraw(hdc); //슬라이드 이미지를 내보냄 (충돌 범위 줄어듬)
+        }
+        else Draw(hdc); //슬라이드를 누르지 않는 모든 상황엔 기본 이미지
         EndPaint(hWnd, &ps);
        return 0;
 
     case WM_KEYDOWN:
         switch (wParam)
         {
+        case VK_UP:
+            SetTimer(hWndMain, 1, 40, NULL);
+            break;
+        case VK_DOWN:
+            isslide = true; //아래키를 눌렀을 때 슬라이드 가능메세지를 보냄 (WM_PAINT에)
+            InvalidateRect(hWndMain, NULL, true);
+            break;
         default:
             break;
         }
+        break;
+
+    case WM_KEYUP:
+        switch (wParam)
+        {
+        case VK_DOWN:
+            isslide = false;
+            break;
+        default:
+            break;
+        }
+        InvalidateRect(hWndMain, NULL, true);
         break;
 
     case WM_TIMER:
@@ -101,3 +126,5 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
     }
     return(DefWindowProc(hWnd, iMessage, wParam, lParam));
 }
+
+//test

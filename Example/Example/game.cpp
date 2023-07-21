@@ -3,9 +3,14 @@
 
 void Reset() //초기화
 {
-    x = 330; y = 370;
+    x = 200; y = 370;
     isjump = false;
     isdown = false;
+    isslide = false;
+
+    easy = true;
+    normal = false;
+    hard = false;
     num = 0;
 }
 
@@ -51,3 +56,28 @@ void Gravity() //점프시 모든 중력
    // InvalidateRect(hWndMain, NULL, FALSE);
 }
 
+void MapDraw(HDC hdc) //맵
+{
+    if (easy)
+    {
+        f[0].floor_x = 0;
+        f[0].floor_y = 400;
+        f[1].floor_x = 500;
+        f[1].floor_y = 400;
+        for (int i = 0; i < 2; i++)
+        {
+            MoveToEx(hdc, f[i].floor_x, f[i].floor_y, NULL); //y축은 고정
+            LineTo(hdc, f[i].floor_x + 300, f[i].floor_y);
+        }
+    }
+}
+
+void Draw(HDC hdc) //기본 자세 (임시)
+{
+    Ellipse(hdc, x - BSIZE, y - BSIZE, x + BSIZE, y + BSIZE);
+}
+
+void SlideDraw(HDC hdc) //슬라이드 자세 (임시)
+{
+    Rectangle(hdc, x - SSize, y - SSize + 10, x + SSize, y + SSize + 10);
+}

@@ -1,2 +1,5 @@
-﻿  double.cpp
-  Example.vcxproj -> C:\Users\pc\Desktop\Example\x64\Debug\Example.exe
+﻿  game.cpp
+C:\Users\Administrator\Documents\Project\summer-project\Example\Example\game.h(1,1): warning C4828: 파일에 0x347 오프셋에서 시작하는 문자가 포함되어 있습니다. 이 문자는 현재 원본 문자 집합에서 잘못된 문자입니다(코드 페이지 949).
+C:\Users\Administrator\Documents\Project\summer-project\Example\Example\game.cpp(35,22): warning C4244: '-=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\Administrator\Documents\Project\summer-project\Example\Example\game.cpp(45,22): warning C4244: '+=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Example.vcxproj -> C:\Users\Administrator\Documents\Project\summer-project\Example\x64\Debug\Example.exe
